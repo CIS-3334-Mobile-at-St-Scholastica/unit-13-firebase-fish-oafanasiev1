@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Fish.iml" filepath="$PROJECT_DIR$/Fish.iml" />
       <module fileurl="file://$PROJECT_DIR$/Unit13_FirebaseFish_2018.iml" filepath="$PROJECT_DIR$/Unit13_FirebaseFish_2018.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
