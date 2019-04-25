@@ -1,8 +1,8 @@
 package edu.css.unit13_firebasefish_2018;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,7 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference myFishDbRef;
     int positionSelected;
     Fish fishSelected;
+    FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
     @Override
@@ -40,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("message");
 
         myRef.setValue("Hello, World!");
+        mAuth = FirebaseAuth.getInstance();
 
       //  mAuth = FirebaseAuthException.
-        //setupFirebaseDataChange();
+        setupFirebaseDataChange();
         setupListView();
         setupAddButton();
         setupDetailButton();
@@ -122,4 +126,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        mAuthListener = new FirebaseAuth.AuthStateListener() { //initialized mAuthListener
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //track the user when they sign in or out using the firebaseAut
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // User is signed out
+                    Log.d("CSS3334","onAuthStateChanged - User NOT is signed in");
+                    Intent signInIntent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(signInIntent);
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+    }
+
 }
